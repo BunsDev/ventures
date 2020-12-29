@@ -74,21 +74,21 @@ class Want extends Component {
     this.state = {
       asset: '',
       assets: props.assets,
-      uniContracts: props.uniContracts,
-      assetOptions: [...props.assets, ...props.uniContracts],
+      curveContracts: props.curveContracts,
+      assetOptions: [...props.assets, ...props.curveContracts],
       assetError: false
     }
   }
 
   componentWillReceiveProps(props) {
-    if(props.assets && props.uniContracts) {
+    if(props.assets && props.curveContracts) {
 
       const a = props.assets
-      const b = props.uniContracts
+      const b = props.curveContracts
       const assetOptions = [...a, ...b]
       const _asset = this.state.asset?this.state.asset:''
 
-      this.setState({ assetOptions: assetOptions, assets: props.assets, uniContracts: props.uniContracts, asset: _asset })
+      this.setState({ assetOptions: assetOptions, assets: props.assets, curveContracts: props.curveContracts, asset: _asset })
     }
   }
 
@@ -126,7 +126,7 @@ class Want extends Component {
     if(asset.length > 0) {
       asset = asset[0]
     } else {
-      asset = this.state.uniContracts.filter((contract) => { return contract.symbol === event.target.value })
+      asset = this.state.curveContracts.filter((contract) => { return contract.symbol === event.target.value })
 
       if(asset.length > 0) {
         asset = asset[0]
@@ -157,7 +157,7 @@ class Want extends Component {
             <div className={ classes.assetSelectIcon }>
               <img
                 alt=""
-                src={ require('../../assets/'+(['GDAOv2', 'GDAO'].includes(id) ? 'GDAO' : id)+'-logo.png') }
+                src={ require('../../assets/'+(['crvV1', 'crvV2', 'crvV3', 'crvV3', 'crv'].includes(id) ? 'CRV' : id)+'-logo.png') }
                 height="30px"
               />
             </div>

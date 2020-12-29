@@ -78,30 +78,30 @@ class Have extends Component {
     super()
 
     // const a = props.assets.filter((asset) => { return asset.balance > 0 })
-    // const b = props.curveContracts.filter((asset) => { return asset.balance > 0 })
+    // const b = props.uniContracts.filter((asset) => { return asset.balance > 0 })
 
     const a = props.assets
-    const b = props.curveContracts
+    const b = props.uniContracts
 
     this.state = {
       asset: '',
       assets: props.assets,
-      curveContracts: props.curveContracts,
+      uniContracts: props.uniContracts,
       assetOptions: [...a, ...b],
       assetError: false,
     }
   }
 
   componentWillReceiveProps(props) {
-    if(props.assets && props.curveContracts) {
+    if(props.assets && props.uniContracts) {
       const _asset = this.state.asset?this.state.asset:props.assets[0].symbol
       // const a = props.assets.filter((asset) => { return asset.balance > 0 })
-      // const b = props.curveContracts.filter((asset) => { return asset.balance > 0 })
+      // const b = props.uniContracts.filter((asset) => { return asset.balance > 0 })
 
       const a = props.assets
-      const b = props.curveContracts
+      const b = props.uniContracts
 
-      this.setState({ assetOptions: [...a, ...b], assets: props.assets, curveContracts: props.curveContracts, asset: _asset })
+      this.setState({ assetOptions: [...a, ...b], assets: props.assets, uniContracts: props.uniContracts, asset: _asset })
     }
   }
 
@@ -138,17 +138,10 @@ class Have extends Component {
     if(asset.length > 0) {
       asset = asset[0]
     } else {
-      asset = this.state.curveContracts.filter((contract) => { return contract.symbol === event.target.value })
+      asset = this.state.uniContracts.filter((contract) => { return contract.symbol === event.target.value })
 
       if(asset.length > 0) {
         asset = asset[0]
-      } else {
-        asset = {
-          id: 'crvV4',
-          name: 'Curve.fi yDAI+yUSDC+yUSDT+yTUSD',
-          symbol: 'Curve.fi V4',
-          balance: store.getStore('curvBalance')
-        }
       }
     }
 
@@ -178,7 +171,7 @@ class Have extends Component {
         disabled={ loading }
         className={ classes.assetSelectRoot }
       >
-        { /* this.renderAssetOption('CRV') */ }
+        { /* this.renderAssetOption('GDAO') */ }
         { options ? options.map(this.renderAssetOption) : null }
       </TextField>
     )
@@ -194,7 +187,7 @@ class Have extends Component {
           <div className={ classes.assetSelectIcon }>
             <img
               alt=""
-              src={ require('../../assets/'+(['crvV1', 'crvV2', 'crvV3', 'crvV4'].includes(option.id) ? 'CRV' : option.symbol)+'-logo.png') }
+              src={ require('../../assets/'+(['GDAOv2'].includes(option.id) ? 'GDAO' : option.symbol)+'-logo.png') }
               height="30px"
             />
           </div>

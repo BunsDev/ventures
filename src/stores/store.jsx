@@ -48,7 +48,6 @@ class Store {
       statistics: [],
       universalGasPrice: '70',
       ethPrice: 0,
-      dashboard: defaultValues.dashboard,
       aprs: defaultValues.aprs,
       assets: defaultValues.assets,
       usdPrices: null,
@@ -95,42 +94,26 @@ class Store {
         }
       ],
       curvBalance: 0,
-      curveContracts: [
+      uniBalance: 0,
+      uniContracts: [
         {
-          id: 'crvV1',
-          symbol: 'compound.curve.fi',
+          id: 'GDAOv2',
+          symbol: 'GDAO.uniV2',
           version: 1,
-          erc20address: '0x3740fb63ab7a09891d7c0d4299442a551d06f5fd',
+          erc20address: '0x4D184bf6F805Ee839517164D301f0C4e5d25c374',
           decimals: 18,
           balance: 0
         },
         {
-          id: 'crvV2',
-          symbol: 'usdt.curve.fi',
-          version: 2,
-          erc20address: '0x9fc689ccada600b6df723d9e47d84d76664a1f23',
+          id: 'WETH',
+          symbol: 'WETH',
+          version: 1,
+          erc20address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
           decimals: 18,
           balance: 0
         },
-        {
-          id: 'crvV3',
-          symbol: 'y.curve.fi',
-          version: 3,
-          erc20address: '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8',
-          decimals: 18,
-          balance: 0
-        },
-        {
-          id: 'crvV4',
-          symbol: 'busd.curve.fi',
-          version: 4,
-          erc20address: '0x3B3Ac5386837Dc563660FB6a0937DFAa5924333B',
-          decimals: 18,
-          balance: 0
-        }
       ],
-      ethBalance: 0,
-      sCrvBalance:  0
+      ethBalance: 0
     }
 
     dispatcher.register(
@@ -177,81 +160,13 @@ class Store {
     return {
       assets: [
         {
-          id: 'DAIv3',
-          name: 'DAI',
-          symbol: 'DAI',
-          description: 'DAI Stablecoin',
-          investSymbol: 'yDAI',
-          erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: '0xC2cB1040220768554cf699b0d863A3cd4324ce32',
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          decimals: 18,
-          price: 0,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 3,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: false,
-          price_id: 'dai'
-        },
-        {
-          id: 'USDCv3',
-          name: 'USD Coin',
-          symbol: 'USDC',
-          description: 'USD Coin',
-          investSymbol: 'yUSDC',
-          erc20address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-          iEarnContract: '0x26EA744E5B887E5205727f55dFBE8685e3b21951',
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 6,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 3,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: false,
-          price_id: 'usd-coin'
-        },
-        {
-          id: 'USDTv3',
-          name: 'USDT',
-          symbol: 'USDT',
-          description: 'Tether USD',
-          investSymbol: 'yUSDT',
-          erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          iEarnContract: '0xE6354ed5bC4b393a5Aad09f21c46E101e692d447',
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 6,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 3,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: false,
-          price_id: 'tether'
-        },
-        {
-          id: 'BUSDv3',
-          name: 'BUSD',
-          symbol: 'BUSD',
-          description: 'Binance USD',
-          investSymbol: 'yBUSD',
-          erc20address: '0x4fabb145d64652a948d72533023f6e7a623c7c53',
-          iEarnContract: '0x04bC0Ab673d88aE9dbC9DA2380cB6B79C4BCa9aE',
+          id: 'GDAO',
+          name: 'GDAO',
+          symbol: 'GDAO',
+          description: 'Governor DAO',
+          investSymbol: 'GDAO',
+          erc20address: '0x4DaC3e07316D2A31baABb252D89663deE8F76f09',
+          governatorContract: '0x09e16AD071f4F80c02856275116cC772ba74b62c',
           apr: 0,
           maxApr: 0,
           balance: 0,
@@ -259,237 +174,13 @@ class Store {
           price: 0,
           decimals: 18,
           poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
+          abi: config.governatorABI,
           version: 3,
-          disabled: false,
+          disabled: true,
           invest: 'deposit',
           redeem: 'withdraw',
           curve: true,
-          price_id: 'binance-usd'
-        },
-        {
-          id: 'DAIv2',
-          name: 'DAI',
-          symbol: 'DAI',
-          description: 'DAI Stablecoin',
-          investSymbol: 'yDAI',
-          erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: '0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01',
-          lastMeasurement: 9465912,
-          measurement: 1000037230456849197,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          decimals: 18,
-          price: 0,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 2,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: true,
-          price_id: 'dai'
-        },
-        {
-          id: 'USDCv2',
-          name: 'USD Coin',
-          symbol: 'USDC',
-          description: 'USD Coin',
-          investSymbol: 'yUSDC',
-          erc20address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-          iEarnContract: '0xd6aD7a6750A7593E092a9B218d66C0A814a3436e',
-          lastMeasurement: 9465880,
-          measurement: 1139534904703193728,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 6,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 2,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: true,
-          price_id: 'usd-coin'
-        },
-        {
-          id: 'TUSDv2',
-          name: 'TUSD',
-          symbol: 'TUSD',
-          description: 'TrueUSD',
-          investSymbol: 'yTUSD',
-          erc20address: '0x0000000000085d4780B73119b644AE5ecd22b376',
-          iEarnContract: '0x73a052500105205d34Daf004eAb301916DA8190f',
-          lastMeasurement: 9479531,
-          measurement: 1000197346651007837 ,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 18,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 2,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: true,
-          price_id: 'true-usd',
-        },
-        {
-          id: 'SUSDv2',
-          name: 'SUSD',
-          symbol: 'SUSD',
-          description: 'Synth sUSD',
-          investSymbol: 'ySUSD',
-          erc20address: '0x57Ab1ec28D129707052df4dF418D58a2D46d5f51',
-          iEarnContract: '0xF61718057901F84C4eEC4339EF8f0D86D2B45600',
-          lastMeasurement: 9465880,
-          measurement: 1000021451644065970,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 18,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 2,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: false,
-          price_id: 'nusd',
-        },
-        {
-          id: 'wBTCv2',
-          name: 'wBTC',
-          symbol: 'wBTC',
-          description: 'Wrapped BTC',
-          investSymbol: 'yWBTC',
-          erc20address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-          iEarnContract: '0x04Aa51bbcB46541455cCF1B8bef2ebc5d3787EC9',
-          lastMeasurement: 9465880,
-          measurement: 999998358212140782,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 8,
-          poolValue: 0,
-          abi: config.IEarnErc20ABIv2,
-          version: 2,
-          disabled: false,
-          invest: 'deposit',
-          redeem: 'withdraw',
-          curve: false,
-          price_id: 'wrapped-bitcoin',
-        },
-        {
-          id: 'DAIv1',
-          name: 'DAI',
-          symbol: 'DAI',
-          description: 'DAI Stablecoin',
-          investSymbol: 'yDAI',
-          erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: '0x9D25057e62939D3408406975aD75Ffe834DA4cDd',
-          lastMeasurement: 9400732,
-          measurement: 1000848185112260412,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          decimals: 18,
-          price: 0,
-          poolValue: 0,
-          abi: config.IEarnERC20ABI,
-          version: 1,
-          disabled: true,
-          invest: 'invest',
-          redeem: 'redeem',
-          curve: false,
-          price_id: 'dai',
-        },
-        {
-          id: 'USDCv1',
-          name: 'USD Coin',
-          symbol: 'USDC',
-          description: 'USD Coin',
-          investSymbol: 'yUSDC',
-          erc20address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-          iEarnContract: '0xa2609B2b43AC0F5EbE27deB944d2a399C201E3dA',
-          lastMeasurement: 9400732,
-          measurement: 1001761741440856097,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 6,
-          poolValue: 0,
-          abi: config.IEarnERC20ABI,
-          version: 1,
-          disabled: true,
-          invest: 'invest',
-          redeem: 'redeem',
-          curve: false,
-          price_id: 'usd-coin',
-        },
-        {
-          id: 'USDTv1',
-          name: 'USDT',
-          symbol: 'USDT',
-          description: 'Tether USD',
-          investSymbol: 'yUSDT',
-          erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          iEarnContract: '0xa1787206d5b1bE0f432C4c4f96Dc4D1257A1Dd14',
-          lastMeasurement: 9400732,
-          measurement: 1085531657202472310,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 6,
-          poolValue: 0,
-          abi: config.IEarnERC20ABI,
-          version: 1,
-          disabled: true,
-          invest: 'invest',
-          redeem: 'redeem',
-          curve: false,
-          price_id: 'tether',
-        },
-        {
-          id: 'wBTCv1',
-          name: 'wBTC',
-          symbol: 'wBTC',
-          tokenSymbol: 'wBTC',
-          description: 'Wrapped BTC',
-          investSymbol: 'yBTC',
-          erc20address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-          iEarnContract: '0x04EF8121aD039ff41d10029c91EA1694432514e9',
-          lastMeasurement: 9427488,
-          measurement: 2000175540087812685,
-          apr: 0,
-          maxApr: 0,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 8,
-          poolValue: 0,
-          abi: config.IEarnERC20ABI,
-          version: 1,
-          disabled: true,
-          invest: 'invest',
-          redeem: 'redeem',
-          curve: false,
-          price_id: 'wrapped-bitcoin',
+          price_id: 'governor-dao'
         },
         {
           id: 'ETHv1',
@@ -498,7 +189,7 @@ class Store {
           description: 'Ethereum',
           investSymbol: 'iETH',
           erc20address: 'Ethereum',
-          iEarnContract: '0x9Dde7cdd09dbed542fC422d18d89A589fA9fD4C0',
+          governatorContract: '0x9Dde7cdd09dbed542fC422d18d89A589fA9fD4C0',
           apr: 0,
           maxApr: 0,
           balance: 0,
@@ -511,170 +202,6 @@ class Store {
           disabled: true,
           invest: 'invest',
           redeem: 'redeem',
-          price_id: 'ethereum',
-        },
-        {
-          id: 'iDAIv1',
-          name: 'Fulcrum DAI iToken',
-          symbol: 'iDAI',
-          description: 'Fulcrum DAI iToken',
-          erc20address: '0x493c57c4763932315a328269e1adad09653b9081',
-          iEarnContract: null,
-          balance: 0,
-          investedBalance: 0,
-          price: 0,
-          decimals: 18,
-          poolValue: 0,
-          version: 2,
-          disabled: true,
-          idai: true,
-          price_id: 'dai',
-        },
-      ],
-      vaultAssets: [
-        {
-          id: 'YFI',
-          name: 'yearn.finance',
-          symbol: 'YFI',
-          description: 'yearn.finance',
-          vaultSymbol: 'yYFI',
-          erc20address: '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
-          vaultContractAddress: '0xBA2E7Fed597fd0E3e70f5130BcDbbFE06bB94fe1',
-          vaultContractABI: config.vaultContractV3ABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 18,
-          deposit: true,
-          depositAll: true,
-          withdraw: true,
-          withdrawAll: true,
-          lastMeasurement: 10695309,
-          measurement: 1e18,
-          price_id: 'yearn-finance',
-        },
-        {
-          id: 'DAI',
-          name: 'DAI',
-          symbol: 'DAI',
-          description: 'DAI Stablecoin',
-          vaultSymbol: 'yDAI',
-          erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          vaultContractAddress: '0xACd43E627e64355f1861cEC6d3a6688B31a6F952',
-          vaultContractABI: config.vaultContractV3ABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 18,
-          deposit: true,
-          depositAll: true,
-          withdraw: true,
-          withdrawAll: true,
-          lastMeasurement: 10650116,
-          measurement: 1e18,
-          price_id: 'dai',
-          yVaultCheckAddress: '0x1bbe0f9af0cf852f9ff14637da2f0bc477a6d1ad',
-          yVaultCheckDisabled: true
-        },
-        {
-          id: 'USDC',
-          name: 'USD Coin',
-          symbol: 'USDC',
-          description: 'USD Coin',
-          vaultSymbol: 'yUSDC',
-          erc20address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-          vaultContractAddress: '0x597aD1e0c13Bfe8025993D9e79C69E1c0233522e',
-          vaultContractABI: config.vaultContractABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 6,
-          deposit: true,
-          depositAll: false,
-          withdraw: true,
-          withdrawAll: false,
-          lastMeasurement: 10532708,
-          measurement: 1e18,
-          price_id: 'usd-coin',
-        },
-        {
-          id: 'USDT',
-          name: 'USDT',
-          symbol: 'USDT',
-          description: 'Tether USD',
-          vaultSymbol: 'yUSDT',
-          erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          vaultContractAddress: '0x2f08119C6f07c006695E079AAFc638b8789FAf18',
-          vaultContractABI: config.vaultContractV3ABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 6,
-          deposit: true,
-          depositAll: true,
-          withdraw: true,
-          withdrawAll: true,
-          lastMeasurement: 10651402,
-          measurement: 1e18,
-          price_id: 'tether',
-        },
-        {
-          id: 'LINK',
-          name: 'ChainLink',
-          symbol: 'LINK',
-          description: 'ChainLink',
-          vaultSymbol: 'yLINK',
-          erc20address: '0x514910771af9ca656af840dff83e8264ecf986ca',
-          vaultContractAddress: '0x881b06da56BB5675c54E4Ed311c21E54C5025298',
-          vaultContractABI: config.vaultContractV3ABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 18,
-          deposit: true,
-          depositAll: true,
-          withdraw: true,
-          withdrawAll: true,
-          depositDisabled: true,
-          lastMeasurement: 10604016,
-          measurement: 1e18,
-          price_id: 'chainlink',
-        },
-        {
-          id: 'WETH',
-          name: 'WETH',
-          symbol: 'WETH',
-          description: 'Wrapped Ether',
-          vaultSymbol: 'yWETH',
-          erc20address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-          vaultContractAddress: '0xe1237aA7f535b0CC33Fd973D66cBf830354D16c7',
-          vaultContractABI: config.vaultContractV4ABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 18,
-          deposit: true,
-          depositAll: true,
-          withdraw: true,
-          withdrawAll: true,
-          lastMeasurement: 10774489,
-          measurement: 1e18,
-          depositDisabled: true,
-          price_id: 'ethereum',
-        },
-        {
-          id: 'ETH',
-          name: 'ETH',
-          symbol: 'ETH',
-          description: 'Ether',
-          vaultSymbol: 'yETH',
-          erc20address: 'Ethereum',
-          vaultContractAddress: '0xe1237aA7f535b0CC33Fd973D66cBf830354D16c7',
-          vaultContractABI: config.vaultContractV4ABI,
-          balance: 0,
-          vaultBalance: 0,
-          decimals: 18,
-          deposit: true,
-          depositAll: false,
-          withdraw: true,
-          withdrawAll: true,
-          lastMeasurement: 10774489,
-          measurement: 1e18,
-          depositDisabled: true,
           price_id: 'ethereum',
         },
       ],
@@ -705,7 +232,7 @@ class Store {
           code to accomodate for "assert _value == 0 or self.allowances[msg.sender][_spender] == 0" in contract
           We check to see if the allowance is > 0. If > 0 set to 0 before we set it to the correct amount.
         */
-        if(['crvV1', 'crvV2', 'crvV3', 'crvV4', 'USDTv1', 'USDTv2', 'USDTv3', 'USDT', 'sCRV'].includes(asset.id) && ethAllowance > 0) {
+        if(['GDAOv2'].includes(asset.id) && ethAllowance > 0) {
           await erc20Contract.methods.approve(contract, web3.utils.toWei('0', "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
         }
 
@@ -730,7 +257,7 @@ class Store {
     const ethAllowance = web3.utils.fromWei(allowance, "ether")
 
     if(parseFloat(ethAllowance) < parseFloat(amount)) {
-      if(['crvV1', 'crvV2', 'crvV3', 'crvV4', 'USDTv1', 'USDTv2', 'USDTv3', 'sCRV'].includes(asset.id) && ethAllowance > 0) {
+      if(['GDAOv2'].includes(asset.id) && ethAllowance > 0) {
         erc20Contract.methods.approve(contract, web3.utils.toWei('0', "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
           .on('transactionHash', async function(hash){
             erc20Contract.methods.approve(contract, web3.utils.toWei(amount, "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
@@ -776,9 +303,9 @@ class Store {
   _callInvest = async (asset, account, amount, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    let iEarnContract = new web3.eth.Contract(asset.abi, asset.iEarnContract)
+    let governatorContract = new web3.eth.Contract(asset.abi, asset.governatorContract)
     if(asset.erc20address === 'Ethereum') {
-      iEarnContract.methods[asset.invest]().send({ from: account.address, value: web3.utils.toWei(amount, "ether"), gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+      governatorContract.methods[asset.invest]().send({ from: account.address, value: web3.utils.toWei(amount, "ether"), gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
         .on('transactionHash', function(hash){
           console.log(hash)
           callback(null, hash)
@@ -810,7 +337,7 @@ class Store {
       if (asset.decimals !== 18) {
         amountToSend = amount*10**asset.decimals;
       }
-      iEarnContract.methods[asset.invest](amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+      governatorContract.methods[asset.invest](amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
         .on('transactionHash', function(hash){
           console.log(hash)
           callback(null, hash)
@@ -943,13 +470,13 @@ class Store {
 
   _getBalance = async (web3, asset, account, callback) => {
 
-    if(asset.iEarnContract === null) {
+    if(asset.governatorContract === null) {
       return callback(null, 0)
     }
 
     if(asset.erc20address === 'Ethereum') {
       try {
-        const eth_balance = web3.utils.fromWei(await web3.eth.getBalance(asset.iEarnContract), "ether");
+        const eth_balance = web3.utils.fromWei(await web3.eth.getBalance(asset.governatorContract), "ether");
         callback(null, parseFloat(eth_balance))
       } catch(ex) {
         console.log(ex)
@@ -959,7 +486,7 @@ class Store {
       let erc20Contract = new web3.eth.Contract(config.erc20ABI, asset.erc20address)
 
       try {
-        var balance = await erc20Contract.methods.balanceOf(asset.iEarnContract).call({ from: account.address });
+        var balance = await erc20Contract.methods.balanceOf(asset.governatorContract).call({ from: account.address });
         balance = parseFloat(balance)/10**asset.decimals
         callback(null, parseFloat(balance))
       } catch(ex) {
@@ -972,18 +499,18 @@ class Store {
 
   _getPoolValue = async (web3, asset, account, callback) => {
 
-    if(asset.iEarnContract === null) {
+    if(asset.governatorContract === null) {
       return callback(null, 0)
     }
 
     try {
-      let iEarnContract = new web3.eth.Contract(asset.abi, asset.iEarnContract)
+      let governatorContract = new web3.eth.Contract(asset.abi, asset.governatorContract)
       let value = 0
 
       if(asset.erc20address === 'Ethereum') {
-        value = web3.utils.fromWei(await iEarnContract.methods.calcPoolValueInETH().call({ from: account.address }), 'ether');
+        value = web3.utils.fromWei(await governatorContract.methods.calcPoolValueInETH().call({ from: account.address }), 'ether');
       } else {
-        value = await iEarnContract.methods.calcPoolValueInToken().call({ from: account.address });
+        value = await governatorContract.methods.calcPoolValueInToken().call({ from: account.address });
         if (asset.decimals === 18) {
           value = web3.utils.fromWei(value, 'ether');
         } else {
@@ -1000,12 +527,12 @@ class Store {
 
   _getPoolPrice = async (web3, asset, account, callback) => {
 
-    if(asset.iEarnContract === null) {
+    if(asset.governatorContract === null) {
       return callback(null, 0)
     }
 
-    let iEarnContract = new web3.eth.Contract(config.IEarnABI, asset.iEarnContract)
-    const balance = web3.utils.fromWei(await iEarnContract.methods.getPricePerFullShare().call({ from: account.address }), 'ether');
+    let governatorContract = new web3.eth.Contract(config.IEarnABI, asset.governatorContract)
+    const balance = web3.utils.fromWei(await governatorContract.methods.getPricePerFullShare().call({ from: account.address }), 'ether');
     callback(null, parseFloat(balance))
   }
 
@@ -1014,13 +541,8 @@ class Store {
     return rawTx
   }
 
-  _getPricePerFullShare = async (web3, iEarnContract) => {
-    const balance = web3.utils.fromWei(await iEarnContract.methods.getPricePerFullShare().call({ }), 'ether');
-    return balance
-  }
-
-  _getIEthBalance = async (web3, iEarnContract, address) => {
-    const balance = web3.utils.fromWei(await iEarnContract.methods.balanceOf(address).call({ }), 'ether');
+  _getPricePerFullShare = async (web3, governatorContract) => {
+    const balance = web3.utils.fromWei(await governatorContract.methods.getPricePerFullShare().call({ }), 'ether');
     return balance
   }
 
@@ -1099,17 +621,8 @@ class Store {
 
     let contractAddress = ''
 
-    if(receiveAsset.id === 'crvV3') {
-      contractAddress = config.yCurveGovernateAddress
-    }
-    if(receiveAsset.id === 'crvV4') {
-      contractAddress = config.yCurveGovernateV4Address
-    }
-    if(sendAsset.id === 'crvV3') {
-      contractAddress = config.yCurveGovernateOutAddress
-    }
-    if(sendAsset.id === 'crvV4') {
-      contractAddress = config.yCurveGovernateOutV4Address
+    if(receiveAsset.id === 'uniV2') {
+      contractAddress = config.GovernatorAddress
     }
 
     this._checkApproval(sendAsset, account, amount, contractAddress, (err) => {
@@ -1135,21 +648,14 @@ class Store {
       amountToSend = amount*10**sendAsset.decimals;
     }
 
-    let yCurveGovernateContract = null
-    if(receiveAsset.id === 'crvV3') {
-      yCurveGovernateContract = new web3.eth.Contract(config.yCurveGovernateABI, config.yCurveGovernateAddress)
-    } else if(receiveAsset.id === 'crvV4') {
-      yCurveGovernateContract = new web3.eth.Contract(config.yCurveGovernateV4ABI, config.yCurveGovernateV4Address)
-    } else if(sendAsset.id === 'crvV3') {
-      yCurveGovernateContract = new web3.eth.Contract(config.yCurveGovernateOutABI, config.yCurveGovernateOutAddress)
-    } else if(sendAsset.id === 'crvV4') {
-      yCurveGovernateContract = new web3.eth.Contract(config.yCurveGovernateOutV4ABI, config.yCurveGovernateOutV4Address)
+    let governatorContract = null
+    if(receiveAsset.id === 'uniV2') {
+      governatorContract = new web3.eth.Contract(config.governatorABI, config.governatorAddress)
     }
     let call = ''
 
     switch (sendAsset.id) {
-      case 'DAIv2':
-      case 'DAIv3':
+      case 'GDAOv2':
         call = 'depositDAI'
         break;
       case 'USDCv2':
@@ -1159,12 +665,6 @@ class Store {
       case 'USDTv2':
       case 'USDTv3':
         call = 'depositUSDT'
-        break;
-      case 'TUSDv2':
-        call = 'depositTUSD'
-        break;
-      case 'BUSDv3':
-        call = 'depositBUSD'
         break;
       case 'crvV3':
       case 'crvV4':
@@ -1184,17 +684,13 @@ class Store {
           case 'TUSDv2':
             call = 'withdrawTUSD'
             break;
-          case 'BUSDv3':
-            call = 'withdrawBUSD'
-            break;
           default:
-
         }
         break;
       default:
     }
 
-    yCurveGovernateContract.methods[call](amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+    governatorContract.methods[call](amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
       .on('transactionHash', function(hash){
         console.log(hash)
         callback(null, hash)
@@ -1241,7 +737,7 @@ class Store {
     const web3 = new Web3(store.getStore('web3context').library.provider);
     let erc20Contract = new web3.eth.Contract(config.erc20ABI, asset.erc20address)
     try {
-      if(['crvV1', 'crvV2', 'crvV3', 'crvV4', 'USDTv1', 'USDTv2', 'USDTv3', 'USDT'].includes(asset.id)) {
+      if(['GDAOv2'].includes(asset.id)) {
         const allowance = await erc20Contract.methods.allowance(account.address, contract).call({ from: account.address })
         const ethAllowance = web3.utils.fromWei(allowance, "ether")
         if(ethAllowance > 0) {
@@ -1299,7 +795,7 @@ class Store {
 
   _getUSDPrices = async () => {
     try {
-      const url = 'https://api.coingecko.com/api/v3/simple/price?ids=usd-coin,dai,true-usd,tether,usd-coin,chainlink,yearn-finance,binance-usd,wrapped-bitcoin,ethereum,nusd,chainlink,aave-link,lp-sbtc-curve,lp-bcurve,curve-fi-ydai-yusdc-yusdt-ytusd,lp-3pool-curve,gemini-dollar,curve-dao-token&vs_currencies=usd,eth'
+      const url = 'https://api.coingecko.com/api/v3/simple/price?ids=governor-dao,usd-coin,dai,true-usd,tether,usd-coin,chainlink,yearn-finance,binance-usd,wrapped-bitcoin,ethereum,nusd,chainlink,aave-link,lp-sbtc-curve,lp-bcurve,curve-fi-ydai-yusdc-yusdt-ytusd,lp-3pool-curve,gemini-dollar,curve-dao-token&vs_currencies=usd,eth'
       const priceString = await rp(url);
       const priceJSON = JSON.parse(priceString)
 

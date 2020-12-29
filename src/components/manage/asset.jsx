@@ -291,20 +291,6 @@ class Asset extends Component {
     </div>)
   };
 
-  lender = (val) => {
-    if (val === 0) {
-      return 'NONE'
-    } else if (val === 1) {
-      return 'dYdX'
-    } else if (val === 2) {
-      return 'Compound'
-    } else if (val === 3) {
-      return 'Aave'
-    } else if (val === 4) {
-      return 'Fulcrum'
-    }
-  }
-
   onChange = (event) => {
     let val = []
     val[event.target.id] = event.target.value

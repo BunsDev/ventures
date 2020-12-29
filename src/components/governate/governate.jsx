@@ -205,7 +205,7 @@ class Governate extends Component {
     this.state = {
       account: account,
       assets: store.getStore('assets').filter((asset) => asset.curve === true),
-      curveContracts: store.getStore('curveContracts'),
+      uniContracts: store.getStore('uniContracts'),
       sendAsset: null,
       receiveAsset: null,
       sendAmount: "",
@@ -294,7 +294,7 @@ class Governate extends Component {
     const { classes, t } = this.props;
     const {
       assets,
-      curveContracts,
+      uniContracts,
       sendAsset,
       sendAmount,
       receiveAsset,
@@ -324,13 +324,13 @@ class Governate extends Component {
         <div className={ classes.card }>
           <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
           <Card className={ classes.iHaveContainer }>
-            <Have assets={ assets } curveContracts={ curveContracts } setSendAsset={ this.setSendAsset } sendAsset={ sendAsset } setSendAmountPercent={ this.setSendAmountPercent } loading={ loading } />
+            <Have assets={ assets } uniContracts={ uniContracts } setSendAsset={ this.setSendAsset } sendAsset={ sendAsset } setSendAmountPercent={ this.setSendAmountPercent } loading={ loading } />
             <Sending sendAsset={ sendAsset } sendAmount={ sendAmount } setSendAmount={ this.setSendAmount } setSendAmountPercent={ this.setSendAmountPercent } loading={ loading }  />
             <div className={ classes.sepperator }></div>
             { (sendAsset && sendAsset.symbol === 'ETH') &&
               <ConversionRatios bestPrice={ bestPrice } sendAsset={ sendAsset } receiveAsset={ receiveAsset } />
             }
-            <Want assets={ assets } curveContracts={ curveContracts } receiveAsset={ receiveAsset } setReceiveAsset={ this.setReceiveAsset } sendAsset={ sendAsset } loading={ loading } bestPrice={ bestPrice } sendAmount={ sendAmount } />
+            <Want assets={ assets } uniContracts={ uniContracts } receiveAsset={ receiveAsset } setReceiveAsset={ this.setReceiveAsset } sendAsset={ sendAsset } loading={ loading } bestPrice={ bestPrice } sendAmount={ sendAmount } />
             <div className={ classes.sepperator }></div>
             { (sendAsset && receiveAsset && !(['crvV3', 'crvV4'].includes(receiveAsset.id) && ['crvV1', 'crvV2', 'crvV3'].includes(sendAsset.id)) && !(sendAsset && sendAsset.symbol === 'ETH')) && <Button
               className={ classes.actionButton }

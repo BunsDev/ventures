@@ -10,15 +10,15 @@ class SEO extends Component {
 
   render() {
     
-    const base_path = 'https://yearn.finance'
+    const base_path = 'https://devico.ventures'
     const section = window.location.pathname.substring(1)
 
     const location = base_path + '/' + section
     const description = section.charAt(0).toUpperCase() + section.slice(1)
     
     var sectionImg = {
-      dashboard: base_path + require('../../assets/YFI-logo.png'),
-      governate: base_path + require('../../assets/YFI-logo.png'),
+      dashboard: base_path + require('../../assets/GDAO-logo.png'),
+      governate: base_path + require('../../assets/GDAO-logo.png'),
     }
 
     return (
